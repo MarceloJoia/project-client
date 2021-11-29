@@ -10,24 +10,42 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.joiamarketing.client.dto.ClientDTO;
 import br.com.joiamarketing.client.entities.Client;
+import br.com.joiamarketing.client.exceptions.ResourceNotFoundException;
 import br.com.joiamarketing.client.repositories.ClientRepository;
 
 @Service
 public class ClientService {
-	
+
 	@Autowired
 	public ClientRepository repository;
-	
-	@Transactional(readOnly=true)
-	public List<ClientDTO> findAll(){
-		List<Client> list = repository.findAll();	
+
+	@Transactional(readOnly = true)
+	public List<ClientDTO> findAll() {
+		List<Client> list = repository.findAll();
 		return list.stream().map(x -> new ClientDTO(x)).collect(Collectors.toList());
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public ClientDTO findById(Long id) {
 		Optional<Client> obj = repository.findById(id);
-		Client entity = obj.get();
+		Client entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found!"));
 		return new ClientDTO(entity);
+	}
+
+	
+	@Transactional
+	public ClientDTO insert(ClientDTO dto) {
+		Client entity = new Client();
+		CopyDtoToClient(dto, entity);
+		entity = repository.save(entity);
+		return new ClientDTO(entity);
+	}
+	
+	private void CopyDtoToClient(ClientDTO dto, Client entity) {
+		entity.setName(dto.getName());
+		entity.setCpf(dto.getCpf());
+		entity.setIncome(dto.getIncome());
+		entity.setBirthDate(dto.getBirthDate());
+		entity.setChildren(dto.getChildren());
 	}
 }
