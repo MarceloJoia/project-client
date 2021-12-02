@@ -1,6 +1,26 @@
-# project-client
+# Project Client  
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/MarceloJoia/project-client/blob/main/LICENSE) 
 
-<h2>Desafio imersão Spring Boot</h2>
+
+
+# Tecnologias utilizadas
+## Back end
+- Java
+- Spring Boot
+- JPA / Hibernate
+- Maven
+
+# Como executar o projeto
+
+## Back end
+Pré-requisitos: Java 11
+
+```bash
+# clonar repositório
+git clone https://github.com/MarceloJoia/project-client
+
+
+## Desafio imersão Spring Boot
 
 Projeto Spring Boot 2.4.4 contendo um CRUD completo de web services REST para acessar um recurso de clientes, contendo as cinco operações básicas.
 1) Busca paginada de recursos
@@ -12,5 +32,13 @@ Projeto Spring Boot 2.4.4 contendo um CRUD completo de web services REST para ac
 O projeto pronto para o ambiente de testes configurado acessando o banco de dados H2, usar Maven como gerenciador de dependência, e Java 11 como linguagem.
 
 Esse cliente possui nome, CPF, renda, data de nascimento, e quantidade de filhos.
+
+
+# Autor
+
+Marcelo Joia
+
+https://www.linkedin.com/in/marcelo-joia-2284a39b/
+
 
 Desenvolvedor(a) full stack profissional! Prof. <a rel="nofollow" href="https://devsuperior.com.br/" alt="Bootcamps Imersivos com o Nélio Alves" title="Bootcamps Imersivos com o Nélio Alves" target="_blank">Nélio Alves</a>
