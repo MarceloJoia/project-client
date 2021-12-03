@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.ResourceAccessException;
 
 import br.com.joiamarketing.client.dto.ClientDTO;
 import br.com.joiamarketing.client.entities.Client;
+import br.com.joiamarketing.client.exceptions.DataBaseException;
 import br.com.joiamarketing.client.exceptions.ResourceNotFoundException;
 import br.com.joiamarketing.client.repositories.ClientRepository;
 
@@ -51,7 +53,7 @@ public class ClientService {
 			entity = repository.save(entity);
 			return new ClientDTO(entity);
 		} catch (EntityNotFoundException e) {
-			throw new ResourceAccessException("Id not found " + id);
+			throw new ResourceNotFoundException("Id not found " + id);
 		}
 	}
 
@@ -61,5 +63,16 @@ public class ClientService {
 		entity.setIncome(dto.getIncome());
 		entity.setBirthDate(dto.getBirthDate());
 		entity.setChildren(dto.getChildren());
+	}
+
+	public void delete(Long id) {
+
+		try {
+		repository.deleteById(id);
+		} catch(EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		} catch(DataIntegrityViolationException e) {
+			throw new DataBaseException("Integrity violation");
+		}
 	}
 }
