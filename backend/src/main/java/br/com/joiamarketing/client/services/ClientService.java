@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.ResourceAccessException;
 
 import br.com.joiamarketing.client.dto.ClientDTO;
 import br.com.joiamarketing.client.entities.Client;
@@ -32,7 +35,6 @@ public class ClientService {
 		return new ClientDTO(entity);
 	}
 
-	
 	@Transactional
 	public ClientDTO insert(ClientDTO dto) {
 		Client entity = new Client();
@@ -40,7 +42,19 @@ public class ClientService {
 		entity = repository.save(entity);
 		return new ClientDTO(entity);
 	}
-	
+
+	@Transactional
+	public ClientDTO update(Long id, ClientDTO dto) {
+		try {
+			Client entity = repository.getOne(id);
+			CopyDtoToClient(dto, entity);
+			entity = repository.save(entity);
+			return new ClientDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceAccessException("Id not found " + id);
+		}
+	}
+
 	private void CopyDtoToClient(ClientDTO dto, Client entity) {
 		entity.setName(dto.getName());
 		entity.setCpf(dto.getCpf());

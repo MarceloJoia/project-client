@@ -41,4 +41,9 @@ Marcelo Joia
 https://www.linkedin.com/in/marcelo-joia-2284a39b/
 
 
+<<<<<<< HEAD
 Desenvolvedor(a) full stack profissional! Prof. <a rel="nofollow" href="https://devsuperior.com.br/" alt="Bootcamps Imersivos com o Nélio Alves" title="Bootcamps Imersivos com o Nélio Alves" target="_blank">Nélio Alves</a>
+=======
+Desenvolvedor(a) full stack profissional.
+Prof. Nélio Alves
+>>>>>>> 79a2f2438df366e4b9daf76b92bd4d9d1ed3986c
